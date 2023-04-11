@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\VersaoResource;
+use App\Http\Resources\VersoesCollection;
 use App\Models\Versao;
 use Illuminate\Http\Request;
 
@@ -12,7 +14,7 @@ class VersaoController extends Controller
      */
     public function index()
     {
-        return Versao::all();
+        return new VersoesCollection(Versao::select('id','nome','abreviacao')->paginate(5));
     }
 
     /**
@@ -36,11 +38,9 @@ class VersaoController extends Controller
      */
     public function show(string $versao)
     {
-        $versao = Versao::find($versao);
+        $versao = Versao::with('idioma','livros')->find($versao);
         if ($versao) {
-            $versao->idioma;
-            $versao->livros;
-            return $versao;
+            return new VersaoResource($versao);
         }
 
         return response()->json([

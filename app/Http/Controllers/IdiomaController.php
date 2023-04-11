@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\IdiomaResource;
 use App\Models\Idioma;
 use Illuminate\Http\Request;
 
@@ -36,10 +37,10 @@ class IdiomaController extends Controller
      */
     public function show(string $idioma)
     {
-        $idioma = Idioma::find($idioma);
+        $idioma = Idioma::with('versoes')->find($idioma);
         if ($idioma) {
-            $idioma->versoes;
-            return $idioma;
+            // $idioma->versoes;
+            return new IdiomaResource($idioma);
         }
 
         return response()->json([
