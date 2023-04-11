@@ -17,7 +17,20 @@ class TestamentoResource extends JsonResource
         return [
             'id' => $this->id,
             'nome' => $this->nome,
-            'livros' => new LivrosCollection($this->whenLoaded('livros'))
+            'livros' => new LivrosCollection($this->whenLoaded('livros')),
+            'links' => [
+                [
+                    'rel' => 'Alterar um testamento',
+                    'type' => 'PUT',
+                    'link' => route('testamento.update', $this->id),
+                ],
+                [
+                    'rel' => 'Excluir um testamento',
+                    'type' => 'DELETE',
+                    'link' => route('testamento.destroy', $this->id),
+                ]
+
+            ]
         ];
     }
 }
