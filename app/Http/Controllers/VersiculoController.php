@@ -39,6 +39,7 @@ class VersiculoController extends Controller
         $versiculo = Versiculo::find($versiculo);
 
         if ($versiculo) {
+            $versiculo->livro; // relacionamento que quer trazer nas respostas
             return $versiculo;
         }
 
