@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
+    public function index()
+    {
+        $versiculoDoDia = Versiculo::with(['livro'])->find(rand(1,401));
+        return response()->json($versiculoDoDia, 201);
+    }
+
     public function ler_a_biblia($versao, $livro = null, $capitulo = null, $versiculo = null)
     {
         $versiculos = Versiculo::whereHas('livro',function($query) use ($versao, $livro){
@@ -19,6 +25,6 @@ class SiteController extends Controller
             });
         })->filters(['capitulo' => $capitulo, 'versiculo' => $versiculo])->get();
 
-        return response($versiculos, 200);
+        return response()->json($versiculos, 201);
     }
 }

@@ -63,5 +63,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // site publico
-
+Route::get('/site', [SiteController::class, 'index']);
 Route::get('/site/{idVersao}/{livro?}/{capitulo?}/{versiculo?}', [SiteController::class, 'ler_a_biblia']);
