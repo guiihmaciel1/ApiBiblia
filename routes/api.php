@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IdiomaController;
 use App\Http\Controllers\LivroController;
+use App\Http\Controllers\SiteController;
 use App\Http\Controllers\TestamentoController;
 use App\Http\Controllers\VersaoController;
 use App\Http\Controllers\VersiculoController;
@@ -60,3 +61,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// site publico
+
+Route::get('/site/{idVersao}/{livro?}/{capitulo?}/{versiculo?}', [SiteController::class, 'ler_a_biblia']);
