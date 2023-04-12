@@ -17,12 +17,7 @@ class SiteController extends Controller
             $query->when($livro, function($query) use ($livro){
                 $query->where('abreviacao', $livro);
             });
-        })->when($capitulo, function($query) use ($capitulo){
-            $query->where('capitulo', $capitulo);
-        })->when($versiculo, function($query) use ($versiculo){
-            $query->where('versiculo', $versiculo);
-        })
-        ->get();
+        })->filters(['capitulo' => $capitulo, 'versiculo' => $versiculo])->get();
 
         return response($versiculos, 200);
     }

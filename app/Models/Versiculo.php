@@ -11,6 +11,18 @@ class Versiculo extends Model
 
     protected $fillable = [ 'capitulo', 'versiculo', 'texto', 'livro_id' ];
 
+    public function scopeFilters($query, array $filters){
+        // dd($filters);
+        if ($filters['capitulo']) {
+            $query->where('capitulo', $filters['capitulo']);
+        }
+        if ($filters['versiculo']) {
+            $query->where('versiculo', $filters['versiculo']);
+        }
+        return $query;
+
+    }
+
     // pega o livro
 
     public function livro(){
